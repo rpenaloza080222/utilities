@@ -1,5 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v12.6.2/mod.ts";
 import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
+import { sendEmailToOther } from "../lib/EmailService.ts";
 
 export const sendEmail = async (
   context: RouterContext<
@@ -8,33 +9,16 @@ export const sendEmail = async (
     Record<string, any>
   >
 ) => {
- 
-  
-  const body = await context.request.body().value;
-  console.log(body);
+  const body = await context.request.body().value
   const { to, message = "", subject } = body;
   try {
-    const client = new SMTPClient({
-      connection: {
-        hostname: "smtp.gmail.com",
-        port: 465,
-        tls: true,
-        auth: {
-          username: "sendemailrpenaloza",
-          password: "cxrt gsvq hycx xhjj",
-        },
-      },
-    });
-
-    await client.send({
-      from: "sendemailrpenaloza@gmail.com",
-      to,
+    await sendEmailToOther({
+      from: to,
+      to: "roybert35@gmail.com",
       subject,
       content: "...",
       html: `<p>${message}</p>`,
     });
-
-    await client.close();
     return true;
   } catch (e) {
     console.log(e);

@@ -17,7 +17,9 @@ if (import.meta.main) {
   }).post("/send-email", async (context) => {
     const response = await sendEmail(context)
     console.log(response)
-    context.response.body = "Email Sent";
+    context.response.body = {
+      message: "Email Sent"
+    };
   });
   const app = new Application();
   app.use(router.routes());
