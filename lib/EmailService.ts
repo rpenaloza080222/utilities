@@ -1,44 +1,45 @@
 import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
-const RESEND_API_KEY = 're_HaViRmdu_62ghGG1ssswJobGmrNU9kTiP';
+const RESEND_API_KEY = "re_HaViRmdu_62ghGG1ssswJobGmrNU9kTiP";
 
-
-type SendEmailType = {
-  from: string;
+export type SendEmailType = {
   subject: string;
+  to: string | string[];
   html: string;
 };
 
+const username = "sendemailrpenaloza";
+const password = "cxrt gsvq hycx xhjj";
+
+const client = new SMTPClient({
+  connection: {
+    hostname: "smtp.gmail.com",
+    port: 465,
+    tls: true,
+    auth: {
+      username,
+      password,
+    },
+  },
+});
+
 export const sendEmailToOther = async ({
-  from,
+  to,
   subject,
   html,
-}: SendEmailType): Promise<boolean> => {
+}: SendEmailType): Promise<boolean | string> => {
   try {
-    console.log("Sending email")
-    const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${RESEND_API_KEY}`
-        },
-        body: JSON.stringify({
-            from: to,
-            to: ['roybert35@gmail.com'],
-            subject: 'hello world',
-            html: '<strong>it works!</strong>',
-        })
+    const from = `${username}@gmail.com`
+    console.log(from, to)
+    await client.send({
+      from,
+      to,
+      subject,
+      content: "...",
+      html,
     });
-
-    if (res.ok) {
-      console.log("Sent")
-        const data = await res.json();
-        console.log(data)
-        return true
-    }else{
-      console.log("Not Sent")
-      return false
-    }
-  } catch (error) {
-    return false;
+    return true;
+  } catch (_error) {
+    console.log(_error)
+    return _error;
   }
 };
