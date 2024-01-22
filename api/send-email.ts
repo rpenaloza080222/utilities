@@ -1,14 +1,10 @@
-import { RouterContext } from "https://deno.land/x/oak@v12.6.2/mod.ts";
-import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
 import { SendEmailType, sendEmailToOther } from "../lib/EmailService.ts";
 import { ServerRequest } from "https://deno.land/std@0.58.0/http/server.ts";
-import { readAll } from "https://deno.land/std@0.103.0/io/util.ts";
-import { toArrayBuffer } from "https://deno.land/std@0.212.0/streams/to_array_buffer.ts";
-import { toJson } from "https://deno.land/std@0.212.0/streams/to_json.ts";
 import { readJSONFromReadStream } from "../lib/ReaderService.ts";
 
 export default async function (req: ServerRequest) {
   try {
+    console.log("Email endpoint")
     const body = req.body as unknown as ReadableStream<SendEmailType>;
 
     const data = await readJSONFromReadStream<SendEmailType>(body);

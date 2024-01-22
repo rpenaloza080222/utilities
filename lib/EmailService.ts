@@ -2,6 +2,7 @@ import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
 const RESEND_API_KEY = "re_HaViRmdu_62ghGG1ssswJobGmrNU9kTiP";
 
 export type SendEmailType = {
+  from: string
   subject: string;
   to: string | string[];
   html: string;
@@ -23,18 +24,19 @@ const client = new SMTPClient({
 });
 
 export const sendEmailToOther = async ({
+  from,
   to,
   subject,
   html,
 }: SendEmailType): Promise<boolean | string> => {
   try {
-    const from = `${username}@gmail.com`
+    // const from = `${username}@gmail.com`
     console.log(from, to)
     await client.send({
       from,
       to,
       subject,
-      content: "...",
+      content: html,
       html,
     });
     return true;
