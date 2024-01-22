@@ -4,7 +4,6 @@ import { readJSONFromReadStream } from "../lib/ReaderService.ts";
 
 export default async function (req: ServerRequest) {
   try {
-    console.log("Email endpoint")
     const body = req.body as unknown as ReadableStream<SendEmailType>;
 
     const data = await readJSONFromReadStream<SendEmailType>(body);
