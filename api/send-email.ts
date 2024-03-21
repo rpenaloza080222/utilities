@@ -1,6 +1,9 @@
-import { SendEmailType, sendEmailToOther } from "../lib/EmailService.ts";
+import {
+  sendEmailToOther,
+  SendEmailType,
+} from "../lib/services/EmailService.ts";
 import { ServerRequest } from "https://deno.land/std@0.58.0/http/server.ts";
-import { readJSONFromReadStream } from "../lib/ReaderService.ts";
+import { readJSONFromReadStream } from "../lib/services/ReaderService.ts";
 
 export default async function (req: ServerRequest) {
   try {
@@ -18,16 +21,16 @@ export default async function (req: ServerRequest) {
             data: [],
           },
           null,
-          2
+          2,
         ),
         {
           status: 200,
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
-    }else{
+    } else {
       return new Response(
         JSON.stringify(
           {
@@ -36,14 +39,14 @@ export default async function (req: ServerRequest) {
             data: [],
           },
           null,
-          2
+          2,
         ),
         {
           status: 500,
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
     }
   } catch (error) {
@@ -56,14 +59,14 @@ export default async function (req: ServerRequest) {
           data: [],
         },
         null,
-        2
+        2,
       ),
       {
         status: 500,
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
   }
 }

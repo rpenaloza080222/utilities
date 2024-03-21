@@ -1,5 +1,5 @@
-import { handleResponse } from "../../lib/ResponseService.ts";
-import { getClient } from "../../lib/SupabaseService.ts";
+import { handleResponse } from "../../lib/services/ResponseService.ts";
+import { getClient } from "../../lib/services/SupabaseService.ts";
 import { Tables } from "../../lib/enums/Tables.ts";
 import { Appointment } from "../../lib/types/types.d.ts";
 
