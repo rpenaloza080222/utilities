@@ -92,7 +92,7 @@ export default async function createAppAppointment(req: Request) {
       });
 
     if (error) {
-      console.log("Error ", supabase);
+      console.log("Error Appointment", supabase);
       return handleResponse({
         message: error.message,
         data: [],
